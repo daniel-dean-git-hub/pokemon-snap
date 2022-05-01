@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Card.scss'
 
 import { useSelector, useDispatch } from 'react-redux'
@@ -6,21 +6,23 @@ import { flipCard, selectVisibleCards, matchedCard } from '../../gameSlice'
 
 const Card = ({id, name, image, visible, matched}) => {
     const dispatch = useDispatch()
-
     const visibleCards = useSelector(selectVisibleCards)
-    //console.log(visibleCards)
-
-
+    const [loading, setLoading] = useState('loading')
+    
     const cardDisplay = () => {
-        return visible ? <><h3>{name}</h3><img src={image} alt={name} /></>
-           : <img src="https://ssb.wiki.gallery/images/7/7b/Pok%C3%A9_Ball_Origin.png" alt="card-back"/>
+        if (!visible) return <img src="https://ssb.wiki.gallery/images/7/7b/Pok%C3%A9_Ball_Origin.png" alt="card-back"/>
+        
+        return (
+            <>
+                { loading=== 'loading' && <img className='rotate' src={'https://ssb.wiki.gallery/images/7/7b/Pok%C3%A9_Ball_Origin.png'} style={{maxHeight: 475}} alt={loading} /> }
+                <img className={loading} src={image} alt={name} onLoad={() => setLoading('')}/>
+            </>
+        )
     }
-
 
     useEffect(() => {
         if (visibleCards.length === 2) {
             if (visibleCards[0].name === visibleCards[1].name) {
-                console.log('match')
                 dispatch(matchedCard(visibleCards))
             } else {
                 setTimeout(() => dispatch(flipCard(visibleCards)), 1000)
@@ -28,8 +30,6 @@ const Card = ({id, name, image, visible, matched}) => {
         }
     },[visibleCards, dispatch])
     
-
-
     const flip = () => {
         if (visibleCards.length < 2) {
             if (!matched) dispatch(flipCard([{id,visible}]))

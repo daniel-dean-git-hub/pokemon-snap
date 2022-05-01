@@ -3,7 +3,7 @@ import './CardGrid.scss'
 import Card from './card/Card'
 
 const CardGrid = ({cardList}) => {
-    const cards = cardList.map(({id, name, image, visible, matched}) => 
+    const cards = Object.values(cardList).map(({id, name, image, visible, matched}) => 
         <Card
             key={id}
             id={id}
