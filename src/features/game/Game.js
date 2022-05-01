@@ -13,7 +13,7 @@ const Game = () => {
 
   useEffect(() => {
     dispatch(fetchPokemon())
-  },[])
+  },[dispatch])
   
   useEffect(() => {
     const pokemonArr = Object.values(pokemonList)
@@ -44,8 +44,7 @@ const Game = () => {
     }
     
     suffledDeck.forEach(card => dispatch(addCard(card)))
-    
-  }, [pokemonList])
+  }, [pokemonList, dispatch])
 
   
 
