@@ -11,7 +11,6 @@ export const fetchPokemon = createAsyncThunk(
     'pokemon/fetchPokemon',
     async () => {
         const response = await pokemonData()
-
         return response
     }
 )

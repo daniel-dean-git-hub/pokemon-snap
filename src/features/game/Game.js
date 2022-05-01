@@ -8,8 +8,8 @@ import './Game.scss'
 
 const Game = () => {
   const dispatch = useDispatch();
-  const cards = useSelector(selectAllCards);
   const pokemonList = useSelector(selectPokemon);
+  const cards = useSelector(selectAllCards);
 
   useEffect(() => {
     dispatch(fetchPokemon())
@@ -17,9 +17,10 @@ const Game = () => {
   
   useEffect(() => {
     const pokemonArr = Object.values(pokemonList)
+    if (pokemonArr.length < 1) return
+
     const unsuffledDeck = []
     const suffledDeck = unsuffledDeck
-
 
     for (const pokemon of pokemonArr) {
       const { name, number, image } = pokemon;
@@ -45,13 +46,11 @@ const Game = () => {
     
     suffledDeck.forEach(card => dispatch(addCard(card)))
   }, [pokemonList, dispatch])
-
   
-
   return (
     <main>
       <h1>Pokémon Snap</h1>
-      <CardGrid cardList={cards}/>     
+      { Object.values(cards).length > 0 && <CardGrid cardList={cards}/>     }
     </main>
   )
 }
