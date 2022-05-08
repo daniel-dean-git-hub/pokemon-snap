@@ -1,7 +1,4 @@
 export const pokemonData = async (pokemon = 151, cardPair = 5) => {
-    console.log(pokemon)
-    console.log(cardPair)
-
     const randomNumGenerator = () => {
         let number = 0
         while (number === 0) {

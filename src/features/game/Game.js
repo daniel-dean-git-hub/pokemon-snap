@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import CardGrid from './cardGrid/CardGrid'
+import Scoreboard from './scoreboard/Scoreboard'
 import { addCard, selectAllCards } from '../game/gameSlice'
-import { fetchPokemon, selectPokemon } from '../pokemon/pokemonSlice'
+import { fetchPokemon, selectPokemon, clearPokemon } from '../pokemon/pokemonSlice'
 import { v4 as uuidv4 } from 'uuid'
 import './Game.scss'
 
@@ -12,7 +13,7 @@ const Game = () => {
   const cards = useSelector(selectAllCards);
 
   useEffect(() => {
-    dispatch(fetchPokemon({pokemon: 151, cardPair: 3}))
+    dispatch(fetchPokemon({pokemon: 151, cardPair: 6}))
   },[dispatch])
   
   useEffect(() => {
@@ -32,7 +33,8 @@ const Game = () => {
           number: number,
           image: image,
           visible: false, 
-          matched: false
+          matched: false,
+          loaded: false
         })
       }
     }
@@ -45,12 +47,14 @@ const Game = () => {
     }
     
     suffledDeck.forEach(card => dispatch(addCard(card)))
+    dispatch(clearPokemon())
   }, [pokemonList, dispatch])
   
   return (
     <main>
       <h1>Pokémon Snap</h1>
       { Object.values(cards).length > 0 && <CardGrid cardList={cards}/>     }
+      <Scoreboard />
     </main>
   )
 }
