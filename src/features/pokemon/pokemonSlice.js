@@ -9,8 +9,8 @@ const initialState = {
 
 export const fetchPokemon = createAsyncThunk(
     'pokemon/fetchPokemon',
-    async () => {
-        const response = await pokemonData()
+    async ({ pokemon, cardPair }) => {
+        const response = await pokemonData(pokemon, cardPair)
         return response
     }
 )

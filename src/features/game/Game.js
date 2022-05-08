@@ -12,7 +12,7 @@ const Game = () => {
   const cards = useSelector(selectAllCards);
 
   useEffect(() => {
-    dispatch(fetchPokemon())
+    dispatch(fetchPokemon({pokemon: 151, cardPair: 3}))
   },[dispatch])
   
   useEffect(() => {

@@ -1,8 +1,11 @@
-export const pokemonData = async () => {
+export const pokemonData = async (pokemon = 151, cardPair = 5) => {
+    console.log(pokemon)
+    console.log(cardPair)
+
     const randomNumGenerator = () => {
         let number = 0
         while (number === 0) {
-            number = Math.floor(Math.random()*150)
+            number = Math.floor(Math.random()*pokemon)
         }
         return number
     }
@@ -10,7 +13,7 @@ export const pokemonData = async () => {
     const randomNumArr =[]
     const pokemonArr = []
         
-    while (randomNumArr.length < 20) {
+    while (randomNumArr.length < cardPair) {
         let newNumber = randomNumGenerator()
         const currentMatch = randomNumArr.filter(num => num === newNumber)
         while(currentMatch[0] === newNumber) {
