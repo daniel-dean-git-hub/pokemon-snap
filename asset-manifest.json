@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/pokemon-snap/static/css/main.67978571.css",
+    "main.js": "/pokemon-snap/static/js/main.d088cbf6.js",
+    "static/js/787.8364fd4d.chunk.js": "/pokemon-snap/static/js/787.8364fd4d.chunk.js",
+    "index.html": "/pokemon-snap/index.html",
+    "main.67978571.css.map": "/pokemon-snap/static/css/main.67978571.css.map",
+    "main.d088cbf6.js.map": "/pokemon-snap/static/js/main.d088cbf6.js.map",
+    "787.8364fd4d.chunk.js.map": "/pokemon-snap/static/js/787.8364fd4d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.67978571.css",
+    "static/js/main.d088cbf6.js"
+  ]
+}
