@@ -1,14 +1,16 @@
 .card {
-    max-height: 475px;
-    max-width: 475px;
+    // max-height: 475px;
+    // max-width: 475px;
+    width: 100%;
+    height: auto;
     border: 20px solid hsl(48, 100%, 70%);
     border-radius: 20px;
     margin: auto;
 
     img {
         object-fit: contain;
-        max-height: 300px; 
-        max-width: 200px;
+        min-height: 30vh; 
+        max-width: 100%;
     }
 
     .loading {

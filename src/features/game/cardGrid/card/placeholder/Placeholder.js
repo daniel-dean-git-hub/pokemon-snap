@@ -5,8 +5,6 @@ const Placeholder = ({rotate = false, showPlaceholder = false}) => {
         <>
             <img 
                 draggable={false}
-                height="475" 
-                width="475"
                 style={showPlaceholder ? { display: 'block' } : { display: 'none' }}  
                 src="https://ssb.wiki.gallery/images/7/7b/Pok%C3%A9_Ball_Origin.png" 
                 alt="card-back"

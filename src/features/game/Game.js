@@ -52,9 +52,11 @@ const Game = () => {
   
   return (
     <main>
-      <h1>Pokémon Snap</h1>
+      <div className="container">
+        <h1>Pokémon Snap</h1>
+        <Scoreboard />
+      </div>
       { Object.values(cards).length > 0 && <CardGrid cardList={cards}/>     }
-      <Scoreboard />
     </main>
   )
 }

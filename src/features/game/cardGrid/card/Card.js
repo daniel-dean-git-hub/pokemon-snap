@@ -39,8 +39,6 @@ const Card = ({id, name, image, visible, matched}) => {
             <Placeholder rotate={!cardLoadState} showPlaceholder={!visible} />
             <img 
                 draggable={false}
-                height="475"
-                width="475"
                 className={cardLoadState ? '' : 'loading'} 
                 src={image} 
                 alt={name} 
