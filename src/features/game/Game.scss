@@ -4,6 +4,7 @@ main {
     .header-container {
         display: flex;
         justify-content: space-between;
+        flex-direction: row;
     }
 
     h1 {
@@ -17,6 +18,7 @@ main {
         align-items: center;
         width: 100vw;
         max-width: 1600px;
+        margin: 0 auto;
 
         .new-game {
             padding: 0 5vw;
@@ -36,4 +38,12 @@ main {
         }
     }
 
+}
+
+@media screen and (max-width: 770px){
+    main {
+        .header-container {
+            flex-direction: column;
+        }
+    }
 }
