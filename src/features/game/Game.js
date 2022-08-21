@@ -60,9 +60,7 @@ const Game = () => {
   return (
     <main>
       <h1>Pokémon Snap</h1>
-      { loading && <div>Game Loading...</div> }
       { Object.values(cards).length > 0 && <CardGrid cardList={cards}/>     }
-      <Scoreboard />
     </main>
   )
 }
