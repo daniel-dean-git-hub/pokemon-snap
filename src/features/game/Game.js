@@ -1,19 +1,21 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import CardGrid from './cardGrid/CardGrid'
 import Scoreboard from './scoreboard/Scoreboard'
-import { addCard, selectAllCards } from '../game/gameSlice'
+import { addCard, selectAllCards, selectGameLoaded } from '../game/gameSlice'
 import { fetchPokemon, selectPokemon, clearPokemon } from '../pokemon/pokemonSlice'
 import { v4 as uuidv4 } from 'uuid'
 import './Game.scss'
 
 const Game = () => {
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const pokemonList = useSelector(selectPokemon);
   const cards = useSelector(selectAllCards);
+  const gameLoaded = useSelector(selectGameLoaded);
 
   useEffect(() => {
-    dispatch(fetchPokemon({pokemon: 151, cardPair: 6}))
+    dispatch(fetchPokemon({pokemon: 151, cardPair: 1}))
   },[dispatch])
   
   useEffect(() => {
@@ -50,9 +52,15 @@ const Game = () => {
     dispatch(clearPokemon())
   }, [pokemonList, dispatch])
   
+  useEffect(() => {
+    if (gameLoaded &&  Object.values(cards).length > 0) return setLoading(false);
+    return setLoading(true);
+  }, [gameLoaded, cards])
+
   return (
     <main>
       <h1>Pokémon Snap</h1>
+      { loading && <div>Game Loading...</div> }
       { Object.values(cards).length > 0 && <CardGrid cardList={cards}/>     }
       <Scoreboard />
     </main>

@@ -67,7 +67,7 @@ export const selectMatchedCards = state => Object.values(state.game.cards).filte
 
 export const selectCardLoadState = (state, cardId)=> state.game.cards[cardId].loaded
 
-export const selectGameLoaded = state => Object.values(state.game.cards).filter(card => card.loaded === true ).map(card => card)
+export const selectGameLoaded = state => Object.values(state.game.cards).length === Object.values(state.game.cards).filter(card => card.loaded === true ).map(card => card).length
 
 export const selectHighScore = state => state.game.highScore
 

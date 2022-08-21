@@ -1,23 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import { fetchPokemon } from '../../pokemon/pokemonSlice'
 import { selectGameLoaded, selectAllCards, selectHighScore, selectTotalCardFlips, selectMatchedCards, setHighScore, resetGame } from '../gameSlice'
 import { useSelector, useDispatch} from 'react-redux'
+import './Scoreboard.scss'
 
 const Scoreboard = () => {
   const dispatch = useDispatch()
-  const [gameStart, setGameStart] = useState(false)
+  const gameLoaded = useSelector(selectGameLoaded);
   const allCards = Object.values(useSelector(selectAllCards))
-  const loadedCards = useSelector(selectGameLoaded)
   const matchedCards = useSelector(selectMatchedCards)
   const cardFlips = useSelector(selectTotalCardFlips)
   const highScore = useSelector(selectHighScore)
-
-  useEffect(() => {
-    allCards.length === loadedCards.length 
-    ? setGameStart(true)
-    : setGameStart(false)
-  }, [allCards, loadedCards])
 
   useEffect(() => {
     if (allCards.length === 0 ) return 
@@ -26,23 +20,24 @@ const Scoreboard = () => {
     }
   }, [matchedCards, allCards, highScore, cardFlips, dispatch])
 
-  useEffect(() => {
-    console.log(highScore)
-  },[highScore])
+  // useEffect(() => {
+  //   console.log(highScore)
+  // },[highScore])
 
   return (
     <>
-      {!gameStart && <div>Game loading...</div>}
-      {gameStart && 
+      {gameLoaded && allCards.length > 0 && 
         <>
           <div>Scoreboard (lower is better)</div>
           { highScore !== 0 && <div>Record: {highScore}</div>}
           <div>Current score: {cardFlips}</div>
           { matchedCards.length === allCards.length && 
             <div 
-              onClick={()=> {
+              className={'new-game'}
+              onClick={(e)=> {
                 dispatch(resetGame())
                 dispatch(fetchPokemon({pokemon: 151, cardPair: 6}))
+                e.target.style.visibility = 'hidden'
               }}
             >New Game?</div>
           }

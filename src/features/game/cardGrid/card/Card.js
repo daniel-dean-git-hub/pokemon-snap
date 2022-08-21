@@ -33,7 +33,10 @@ const Card = ({id, name, image, visible, matched}) => {
 
     return (
         <div className="card" 
-            style={{ background: '#3a6699', overflow: 'hidden' }} 
+            style={matched || visible 
+                ? { background: '#e0d59b', overflow: 'hidden' } 
+                : { background: '#3a6699', overflow: 'hidden'}
+            }
             onClick={flip}
         >
             <Placeholder rotate={!cardLoadState} showPlaceholder={!visible} />

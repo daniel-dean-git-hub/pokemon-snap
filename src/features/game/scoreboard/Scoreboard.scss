@@ -1,0 +1,9 @@
+.new-game {
+    width: fit-content;
+    text-align: center;
+    margin: auto;
+
+    &:hover {
+        cursor: pointer;
+    }    
+}
