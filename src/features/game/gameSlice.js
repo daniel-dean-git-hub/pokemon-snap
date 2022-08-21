@@ -59,7 +59,7 @@ export const gameSlice = createSlice({
 
 export const { addCard, setCards, flipCard, matchedCard, cardLoad, playerCardFlip, setHighScore, resetGame } = gameSlice.actions;
 
-export const selectAllCards = (state) => state.game.cards;
+export const selectAllCards = (state) => Object.values(state.game.cards);
 
 export const selectVisibleCards = state => Object.values(state.game.cards).filter(card => card.visible && card.matched !== true ).map(card => card)
 

@@ -2,21 +2,22 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import CardGrid from './cardGrid/CardGrid'
 import Scoreboard from './scoreboard/Scoreboard'
-import { addCard, selectAllCards, selectGameLoaded } from '../game/gameSlice'
+import { addCard, selectAllCards, selectGameLoaded, selectMatchedCards, resetGame } from '../game/gameSlice'
 import { fetchPokemon, selectPokemon, clearPokemon } from '../pokemon/pokemonSlice'
 import { v4 as uuidv4 } from 'uuid'
 import './Game.scss'
 
-const Game = () => {
+const Game = ({pairs}) => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const pokemonList = useSelector(selectPokemon);
   const cards = useSelector(selectAllCards);
   const gameLoaded = useSelector(selectGameLoaded);
+  const matchedCards = useSelector(selectMatchedCards)
 
   useEffect(() => {
-    dispatch(fetchPokemon({pokemon: 151, cardPair: 1}))
-  },[dispatch])
+    dispatch(fetchPokemon({pokemon: 151, cardPair: pairs}))
+  },[dispatch, pairs])
   
   useEffect(() => {
     const pokemonArr = Object.values(pokemonList)
@@ -53,14 +54,33 @@ const Game = () => {
   }, [pokemonList, dispatch])
   
   useEffect(() => {
-    if (gameLoaded &&  Object.values(cards).length > 0) return setLoading(false);
+    if (gameLoaded &&  cards.length > 0) return setLoading(false);
     return setLoading(true);
   }, [gameLoaded, cards])
 
   return (
     <main>
-      <h1>Pokémon Snap</h1>
-      { Object.values(cards).length > 0 && <CardGrid cardList={cards}/>     }
+      <div className="header-container">
+        <h1>Pokémon Snap</h1>
+        <Scoreboard />
+      </div>
+      { loading && <div>Game Loading...</div> }
+      <div className="game-container">
+        { cards.length > 0 && <CardGrid cardList={cards}/>     }
+        { matchedCards.length === cards.length && 
+          <div 
+            className={'new-game'}
+            onClick={(e)=> {
+              dispatch(resetGame())
+              dispatch(fetchPokemon({pokemon: 151, cardPair: pairs}))
+              e.target.style.visibility = 'hidden'
+            }}
+          >
+            New Game?
+          </div>
+        }
+      </div>
+      
     </main>
   )
 }

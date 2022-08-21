@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Game />
+        <Game pairs={3}/>
       </header>
     </div>
   );
