@@ -1,30 +1,27 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Game from './features/game/Game';
-import './App.css';
-import { selectCardPairs, setCardPairs } from '../src/features/game/gameSlice.js'
+import DifficultySelection from './features/game/difficulty/difficultySelection.js'
+import './App.scss';
+import { selectCardPairs } from '../src/features/game/gameSlice.js';
+import Scoreboard from './features/game/scoreboard/Scoreboard.js'
 
 function App() {
-  const dispatch = useDispatch();
   const cardPairs = useSelector(selectCardPairs);
-
-
-  console.log(cardPairs)
 
   return (
     <div className="App">
       <header className="App-header">
+        <div className="header-container">
+          <h1>Pokémon Snap</h1>
+          <Scoreboard />
+        </div>
 
-        {cardPairs > 0 && <Game pairs={cardPairs}/> }
-
-
-        {
-          cardPairs === 0 && 
-            <button onClick={(e) => {
-              dispatch(setCardPairs(2))
-            }}>TEST</button>
-        }
-
+          { 
+            cardPairs > 0 
+              ? <Game pairs={cardPairs}/> 
+              : <DifficultySelection />
+          }
       </header>
     </div>
   );

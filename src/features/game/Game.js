@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import CardGrid from './cardGrid/CardGrid'
-import Scoreboard from './scoreboard/Scoreboard'
-import { addCard, selectAllCards, selectGameLoaded, selectMatchedCards, resetGame } from '../game/gameSlice'
+
+import { addCard, selectAllCards, selectGameLoaded, selectMatchedCards, resetGame, selectTotalCardFlips } from '../game/gameSlice'
 import { fetchPokemon, selectPokemon, clearPokemon } from '../pokemon/pokemonSlice'
 import { v4 as uuidv4 } from 'uuid'
 import './Game.scss'
@@ -13,7 +13,8 @@ const Game = ({pairs}) => {
   const pokemonList = useSelector(selectPokemon);
   const cards = useSelector(selectAllCards);
   const gameLoaded = useSelector(selectGameLoaded);
-  const matchedCards = useSelector(selectMatchedCards)
+  const matchedCards = useSelector(selectMatchedCards);
+  const cardFlips = useSelector(selectTotalCardFlips)
 
   useEffect(() => {
     dispatch(fetchPokemon({pokemon: 151, cardPair: pairs}))
@@ -59,23 +60,19 @@ const Game = ({pairs}) => {
   }, [gameLoaded, cards])
 
   return (
-    <main>
-      <div className="header-container">
-        <h1>Pokémon Snap</h1>
-        <Scoreboard />
-      </div>
+    <main>    
       { loading && <div>Game Loading...</div> }
       <div className="game-container">
         { cards.length > 0 && <CardGrid cardList={cards}/>     }
-        { matchedCards.length === cards.length && 
+        { matchedCards.length === cards.length && cardFlips !== 0 && 
           <div 
             className={'new-game'}
             onClick={(e)=> {
               dispatch(resetGame())
-              dispatch(fetchPokemon({pokemon: 151, cardPair: pairs}))
               e.target.style.visibility = 'hidden'
             }}
           >
+            Congratulations!!!<br />
             New Game?
           </div>
         }
