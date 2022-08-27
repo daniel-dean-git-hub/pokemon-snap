@@ -31,6 +31,7 @@ code {
   -ms-user-select: none;
   user-select: none;
   font-family: 'Pokemon Solid', sans-serif;
+  letter-spacing: .5rem;
   color: #ffcb05;
   text-shadow:  3px 3px 0 #193367,
                 -1px -1px 0 #193367,  

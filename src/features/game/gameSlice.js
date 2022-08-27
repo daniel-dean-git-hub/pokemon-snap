@@ -4,7 +4,8 @@ const initialState = {
   cards:{},
   cardsFlipped: 0,
   highScore: 0,
-  cardPairs: 0
+  cardPairs: 0,
+  difficulty: 5,
 };
 
 export const gameSlice = createSlice({
@@ -21,6 +22,9 @@ export const gameSlice = createSlice({
     },
     addCard: (state, {payload}) => {
       state.cards[payload.id] = payload
+    },
+    setDifficulty: (state, {payload}) => {
+      state.difficulty = payload
     },
     setCards: (state, {payload}) => {
       const newState = [];
@@ -62,7 +66,8 @@ export const gameSlice = createSlice({
   }
 })
 
-export const { addCard, setCards, flipCard, matchedCard, cardLoad, playerCardFlip, setHighScore, resetGame, setCardPairs } = gameSlice.actions;
+export const { addCard, setCards, flipCard, matchedCard, cardLoad, playerCardFlip, setHighScore, resetGame, setCardPairs, setDifficulty } = gameSlice.actions;
+
 
 export const selectCardPairs = (state) => state.game.cardPairs;
 
@@ -79,5 +84,7 @@ export const selectGameLoaded = state => Object.values(state.game.cards).length 
 export const selectHighScore = state => state.game.highScore
 
 export const selectTotalCardFlips = state => state.game.cardsFlipped
+
+export const selectDifficulty = state => state.game.difficulty
 
 export default gameSlice.reducer;

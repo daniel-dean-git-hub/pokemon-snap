@@ -9,6 +9,7 @@ import './Game.scss'
 
 const Game = ({pairs}) => {
   const [loading, setLoading] = useState(true);
+  const [gameWon, setGameWon] = useState(false);
   const dispatch = useDispatch();
   const pokemonList = useSelector(selectPokemon);
   const cards = useSelector(selectAllCards);
@@ -59,12 +60,23 @@ const Game = ({pairs}) => {
     return setLoading(true);
   }, [gameLoaded, cards])
 
+
+  useEffect(() => {
+    if(matchedCards.length === cards.length && cardFlips !== 0) {
+      setTimeout(() => setGameWon(true), 500)
+    }
+
+    if (loading) {
+      setGameWon(false)
+    }
+  }, [gameWon, matchedCards, cardFlips, cards, loading])
+
   return (
     <main>    
       { loading && <div>Game Loading...</div> }
       <div className="game-container">
         { cards.length > 0 && <CardGrid cardList={cards}/>     }
-        { matchedCards.length === cards.length && cardFlips !== 0 && 
+        {  gameWon && 
           <div 
             className={'new-game'}
             onClick={(e)=> {
