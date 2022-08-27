@@ -1,11 +1,7 @@
 .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 250px);
+    display: flex;
     gap: 10px;
-    justify-items: center;
+    flex-wrap: wrap;
     justify-content: center;
-    max-width: 100%;
-    margin: 0 auto;
-    position: relative;
 }
 
