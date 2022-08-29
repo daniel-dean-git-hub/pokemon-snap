@@ -1,6 +1,6 @@
 {
   "name": "pokemon-snap",
-  "homepage": "https://dandean191.github.io/pokemon-snap",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
