@@ -11,13 +11,15 @@ function App() {
   const cardPairs = useSelector(selectCardPairs);
 
   useEffect(() => {
-    const changeLoad = () => {
-      alert ('test')
-      setLoading(false);
+    const changeLoad = () => setLoading(false);
+
+    if (document.readyState === "complete") { 
+      changeLoad();
+    } else {
+      window.addEventListener('load', changeLoad);
+      return () => window.removeEventListener('load', changeLoad);
     }
-    window.addEventListener('load', changeLoad);
-    return () => window.removeEventListener('load', changeLoad)
-  })
+  }, [])
 
   if (loading) {
     return (
