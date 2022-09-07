@@ -11,7 +11,10 @@ function App() {
   const cardPairs = useSelector(selectCardPairs);
 
   useEffect(() => {
-    const changeLoad = () => setLoading(false);
+    const changeLoad = () => {
+      alert ('test')
+      setLoading(false);
+    }
     window.addEventListener('load', changeLoad);
     return () => window.removeEventListener('load', changeLoad)
   })
